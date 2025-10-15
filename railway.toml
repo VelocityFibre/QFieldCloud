@@ -14,3 +14,46 @@ PYTHONUNBUFFERED = "1"
 DEBUG = "0"
 ENVIRONMENT = "production"
 DJANGO_ALLOWED_HOSTS = "*"
+
+# QFieldCloud Core Settings
+QFIELDCLOUD_HOST = "railway.app"
+
+# Security Keys (IMPORTANT: Change these in Railway UI!)
+SECRET_KEY = "temporary-secret-key-change-me-in-production-at-least-50-characters-long"
+SALT_KEY = "temporary-salt-key-change-me-in-production-32-chars"
+
+# Database Settings (Railway will provide DATABASE_URL automatically)
+# These are fallback values
+POSTGRES_HOST = "localhost"
+POSTGRES_PORT = "5432"
+POSTGRES_DB = "qfieldcloud"
+POSTGRES_USER = "qfieldcloud"
+POSTGRES_PASSWORD = "change-me"
+POSTGRES_SSLMODE = "prefer"
+
+# Storage Settings (Filesystem by default)
+STORAGES = "filesystem"
+
+# Email Settings (Optional - configure in Railway UI if needed)
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_USE_TLS = "1"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+
+# Gunicorn Settings (already configured in start command)
+GUNICORN_TIMEOUT_S = "120"
+GUNICORN_MAX_REQUESTS = "1000"
+GUNICORN_WORKERS = "3"
+GUNICORN_THREADS = "2"
+
+# Feature Flags
+QFIELDCLOUD_SUBSCRIPTIONS_ENABLED = "1"
+QFIELDCLOUD_INVITATIONS_ENABLED = "1"
+QFIELDCLOUD_REGISTRATION_ENABLED = "1"
+QFIELDCLOUD_ADMIN_ACCOUNT_CREATION_ENABLED = "1"
+
+# Sentry (Optional - add DSN in Railway UI)
+SENTRY_DSN = ""
+SENTRY_ENVIRONMENT = "production"
+SENTRY_SAMPLE_RATE = "0.1"
