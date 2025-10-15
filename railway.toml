@@ -50,6 +50,10 @@ EMAIL_USE_TLS = "1"
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 
+# Email Verification Settings
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+EMAIL_VERIFICATION = "optional"
+
 # Gunicorn Settings (already configured in start command)
 GUNICORN_TIMEOUT_S = "120"
 GUNICORN_MAX_REQUESTS = "1000"
