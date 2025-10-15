@@ -22,14 +22,16 @@ QFIELDCLOUD_HOST = "railway.app"
 SECRET_KEY = "temporary-secret-key-change-me-in-production-at-least-50-characters-long"
 SALT_KEY = "temporary-salt-key-change-me-in-production-32-chars"
 
-# Database Settings (Railway will provide DATABASE_URL automatically)
-# These are fallback values
-POSTGRES_HOST = "localhost"
+# Database Settings (NEON)
+DATABASE_URL = "postgresql://neondb_owner:npg_ZmS1lhvnx9HW@ep-late-cake-a8xp8sl0-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
+
+# Alternative individual settings
+POSTGRES_HOST = "ep-late-cake-a8xp8sl0-pooler.eastus2.azure.neon.tech"
 POSTGRES_PORT = "5432"
-POSTGRES_DB = "qfieldcloud"
-POSTGRES_USER = "qfieldcloud"
-POSTGRES_PASSWORD = "change-me"
-POSTGRES_SSLMODE = "prefer"
+POSTGRES_DB = "neondb"
+POSTGRES_USER = "neondb_owner"
+POSTGRES_PASSWORD = "npg_ZmS1lhvnx9HW"
+POSTGRES_SSLMODE = "require"
 
 # Storage Settings (Filesystem by default)
 STORAGES = "filesystem"
