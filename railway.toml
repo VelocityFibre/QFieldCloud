@@ -1,0 +1,15 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "gunicorn qfieldcloud.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 3 --threads 2"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[variables]
+PORT = "8000"
+DJANGO_SETTINGS_MODULE = "qfieldcloud.settings"
+PYTHONUNBUFFERED = "1"
+DEBUG = "0"
+ENVIRONMENT = "production"
+DJANGO_ALLOWED_HOSTS = "*"

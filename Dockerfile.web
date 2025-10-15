@@ -1,0 +1,48 @@
+##########################
+# RAILWAY WEB RUNNER      #
+##########################
+
+# Use the existing base image
+FROM python:3.10-slim-bookworm
+
+# Environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_NO_CACHE_DIR=1
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y \
+    libpq-dev \
+    python3-dev \
+    gcc \
+    libgdal-dev \
+    gdal-bin \
+    libproj-dev \
+    libgeos-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
+WORKDIR /usr/src/app
+
+# Install pip dependencies
+COPY ./docker-app/requirements/ /requirements/
+RUN pip3 install -r /requirements/requirements_runtime.txt \
+    && pip3 install -r /requirements/requirements.txt \
+    && rm -rf /root/.cache/pip
+
+# Copy project
+COPY ./docker-app/ /usr/src/app/
+
+# Create static files directory
+RUN mkdir -p staticfiles mediafiles
+
+# Collect static files
+RUN python manage.py collectstatic --noinput --clear
+
+# Expose port
+EXPOSE 8000
+
+# Use gunicorn as the entrypoint
+CMD ["gunicorn", "qfieldcloud.wsgi:application", "--bind", "0.0.0.0:8000", "--timeout", "120", "--workers", "3", "--threads", "2"]
