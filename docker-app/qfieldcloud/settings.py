@@ -211,6 +211,9 @@ def parse_database_url(url):
     """Parse DATABASE_URL into Django DATABASES format"""
     parsed = urllib.parse.urlparse(url)
 
+    # Parse query parameters properly
+    query_params = urllib.parse.parse_qs(parsed.query)
+
     return {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": parsed.path[1:],  # Remove leading slash
@@ -218,7 +221,7 @@ def parse_database_url(url):
         "PASSWORD": parsed.password,
         "HOST": parsed.hostname,
         "PORT": str(parsed.port or 5432),
-        "OPTIONS": {"sslmode": parsed.query.get("sslmode", "require")},
+        "OPTIONS": {"sslmode": query_params.get("sslmode", ["require"])[0]},
         "conn_max_age": 600,
     }
 
