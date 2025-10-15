@@ -3,7 +3,7 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile.web"
 
 [deploy]
-startCommand = "python manage.py migrate --run-syncdb && python manage.py collectstatic --noinput && gunicorn qfieldcloud.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 3 --threads 2"
+startCommand = "python manage.py migrate --run-syncdb && python manage.py shell -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qfieldcloud.settings'); import django; django.setup(); from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin123') if not User.objects.filter(username='admin').exists() else print('Superuser already exists')\" && python manage.py collectstatic --noinput && gunicorn qfieldcloud.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 3 --threads 2"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
