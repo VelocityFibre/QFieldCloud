@@ -3,7 +3,7 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile.web"
 
 [deploy]
-startCommand = "gunicorn qfieldcloud.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 3 --threads 2"
+startCommand = "python manage.py collectstatic --noinput && gunicorn qfieldcloud.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 3 --threads 2"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
