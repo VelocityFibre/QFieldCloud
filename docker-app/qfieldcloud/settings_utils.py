@@ -46,11 +46,11 @@ def get_storages_config() -> StoragesConfig:
         raw_storages["default"] = {
             "BACKEND": "qfieldcloud.filestorage.backend.QfcS3Boto3Storage",
             "OPTIONS": {
-                "access_key": os.environ["STORAGE_ACCESS_KEY_ID"],
-                "secret_key": os.environ["STORAGE_SECRET_ACCESS_KEY"],
-                "bucket_name": os.environ["STORAGE_BUCKET_NAME"],
-                "region_name": os.environ["STORAGE_REGION_NAME"],
-                "endpoint_url": os.environ["STORAGE_ENDPOINT_URL"],
+                "access_key": os.environ.get("STORAGE_ACCESS_KEY_ID", "dummy-key-for-filesystem-storage"),
+                "secret_key": os.environ.get("STORAGE_SECRET_ACCESS_KEY", "dummy-secret-for-filesystem-storage"),
+                "bucket_name": os.environ.get("STORAGE_BUCKET_NAME", "dummy-bucket-for-filesystem-storage"),
+                "region_name": os.environ.get("STORAGE_REGION_NAME", "us-east-1"),
+                "endpoint_url": os.environ.get("STORAGE_ENDPOINT_URL", ""),
             },
             "QFC_IS_LEGACY": True,
         }
