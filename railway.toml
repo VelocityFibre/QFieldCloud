@@ -36,6 +36,13 @@ POSTGRES_SSLMODE = "require"
 # Storage Settings (Filesystem by default)
 STORAGES = "filesystem"
 
+# Storage Environment Variables (Required for filesystem storage - using dummy values)
+STORAGE_ACCESS_KEY_ID = "dummy-key-for-filesystem-storage"
+STORAGE_SECRET_ACCESS_KEY = "dummy-secret-for-filesystem-storage"
+STORAGE_BUCKET_NAME = "dummy-bucket-for-filesystem-storage"
+STORAGE_REGION_NAME = "us-east-1"
+STORAGE_ENDPOINT_URL = ""
+
 # Email Settings (Optional - configure in Railway UI if needed)
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = "587"
