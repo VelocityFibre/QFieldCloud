@@ -23,7 +23,7 @@ from .settings_utils import (
 )
 
 # QFieldCloud specific configuration
-QFIELDCLOUD_HOST = os.environ["QFIELDCLOUD_HOST"]
+QFIELDCLOUD_HOST = os.environ.get("QFIELDCLOUD_HOST", "railway.app")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -718,10 +718,10 @@ CONSTANCE_CONFIG_FIELDSETS = {
 QFIELDCLOUD_MINIMUM_RANGE_HEADER_LENGTH = 0
 
 # Name of the qgis docker image used as a worker by worker_wrapper
-QFIELDCLOUD_QGIS_IMAGE_NAME = os.environ["QFIELDCLOUD_QGIS_IMAGE_NAME"]
+QFIELDCLOUD_QGIS_IMAGE_NAME = os.environ.get("QFIELDCLOUD_QGIS_IMAGE_NAME", "qfieldcloud/qgis:latest")
 
 # URL the qgis worker will use to access the running API endpoint on the app service
-QFIELDCLOUD_WORKER_QFIELDCLOUD_URL = os.environ["QFIELDCLOUD_WORKER_QFIELDCLOUD_URL"]
+QFIELDCLOUD_WORKER_QFIELDCLOUD_URL = os.environ.get("QFIELDCLOUD_WORKER_QFIELDCLOUD_URL", "http://localhost:8000")
 
 # Absolute path on the docker host where `libqfieldsync` is mounted from for development
 DEBUG_QGIS_LIBQFIELDSYNC_HOST_PATH = os.environ.get(
