@@ -201,19 +201,17 @@ WSGI_APPLICATION = "qfieldcloud.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+import dj_database_url
+
+# Use DATABASE_URL if available, otherwise use individual settings or fallback values
+database_url = os.environ.get("DATABASE_URL", "postgresql://neondb_owner:npg_ZmS1lhvnx9HW@ep-late-cake-a8xp8sl0-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require")
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
-        "OPTIONS": {"sslmode": os.environ.get("POSTGRES_SSLMODE")},
-        "TEST": {
-            "NAME": os.environ.get("POSTGRES_DB_TEST"),
-        },
-    }
+    "default": dj_database_url.config(
+        database_url,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 # Connection details for the geodb
