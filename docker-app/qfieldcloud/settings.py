@@ -201,17 +201,29 @@ WSGI_APPLICATION = "qfieldcloud.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-import dj_database_url
-
 # Use DATABASE_URL if available, otherwise use individual settings or fallback values
 database_url = os.environ.get("DATABASE_URL", "postgresql://neondb_owner:npg_ZmS1lhvnx9HW@ep-late-cake-a8xp8sl0-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require")
 
+# Parse DATABASE_URL manually (fallback approach)
+import urllib.parse
+
+def parse_database_url(url):
+    """Parse DATABASE_URL into Django DATABASES format"""
+    parsed = urllib.parse.urlparse(url)
+
+    return {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": parsed.path[1:],  # Remove leading slash
+        "USER": parsed.username,
+        "PASSWORD": parsed.password,
+        "HOST": parsed.hostname,
+        "PORT": str(parsed.port or 5432),
+        "OPTIONS": {"sslmode": parsed.query.get("sslmode", "require")},
+        "conn_max_age": 600,
+    }
+
 DATABASES = {
-    "default": dj_database_url.config(
-        database_url,
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    "default": parse_database_url(database_url)
 }
 
 # Connection details for the geodb
