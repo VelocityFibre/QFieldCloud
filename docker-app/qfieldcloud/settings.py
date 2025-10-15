@@ -33,12 +33,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-temp-secret-key-change-me-in-production-at-least-50-chars-long-for-security")
 
 # Key used for cryptographic operations on encrypted fields.
 # More infos about usage and rotation can be found here:
 # https://pypi.org/project/django-fernet-encrypted-fields/
-SALT_KEY = [os.environ.get("SALT_KEY")]
+SALT_KEY = [os.environ.get("SALT_KEY", "temporary-salt-key-change-me-in-production-32-chars-minimum")]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
